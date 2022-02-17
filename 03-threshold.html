@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intersection Observer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="follow-mouse.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            const parentBlock = document.querySelector('#parentBlock')
+            const childBlock = document.querySelector('#childBlock')
+
+            const options = {
+                root: parentBlock,
+                threshold: 0
+                // threshold: 1
+                // threshold: [0, 0.5, 1]
+                // threshold: Array(100).fill(null).map((_, index) => index * (1 / 100)),
+            }
+
+            const handleIntersection = (entries) => {
+                entries.forEach(entry => {
+                    entry.target.innerHTML = entry.intersectionRatio.toFixed(2)
+                })
+            }
+
+            const observer = new IntersectionObserver(handleIntersection, options)
+
+            observer.observe(childBlock)
+        })
+    </script>
+</head>
+<body>
+
+<div id="parentBlock">
+    <div id="childBlock"></div>
+</div>
+
+</body>
+</html>

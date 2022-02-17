@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intersection Observer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+        window.addEventListener('load', () => {
+            const handleIntersection = (entries, observer) => {
+                console.log('entries:', entries)
+                console.log('observer:', observer)
+            }
+
+            const observer = new IntersectionObserver(handleIntersection)
+
+            observer.observe(document.querySelector('#regularBlock1'))
+            // observer.observe(document.querySelector('#regularBlock2'))
+
+        })
+    </script>
+</head>
+<body>
+
+<div id="regularBlock1"></div>
+<!--<div id="regularBlock2"></div>-->
+
+</body>
+</html>

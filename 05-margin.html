@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intersection Observer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="follow-mouse.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            const parentBlock = document.querySelector('#parentBlock')
+            const childBlock = document.querySelector('#childBlock')
+            const indicator = document.querySelector('#indicator')
+
+            const options = {
+                root: parentBlock,
+                rootMargin: '50px',
+                // rootMargin: '-50px',
+                // rootMargin: '50px -50px',
+                threshold: Array(100).fill(null).map((_, index) => index * (1 / 100)),
+            }
+
+            const handleIntersection = (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        indicator.style.display = 'block'
+                        indicator.style.width = `${entry.intersectionRect.width}px`
+                        indicator.style.height = `${entry.intersectionRect.height}px`
+                        indicator.style.top = `${entry.intersectionRect.top}px`
+                        indicator.style.left = `${entry.intersectionRect.left}px`
+                    } else {
+                        indicator.style.display = 'none'
+                    }
+
+                })
+            }
+
+            const observer = new IntersectionObserver(handleIntersection, options)
+
+            observer.observe(childBlock)
+
+        })
+    </script>
+</head>
+<body>
+
+<div id="parentBlock">
+    <div id="childBlock"></div>
+</div>
+
+<div id="indicator"></div>
+
+</body>
+</html>
